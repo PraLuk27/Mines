@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mines Spiel (Mobilfähig)</title>
+<title>Mines Spiel (Mobil & Vollbild optimiert)</title>
 <style>
 :root {
   --bg:#0f1720;
@@ -12,7 +12,7 @@
   --accent:#00c853;
   --tile:#1b2230;
   --gem-size:110%;
-  --bomb-size:110%;
+  --bomb-size:80%;
   --lost-scale:0.75;
 }
 
@@ -180,19 +180,34 @@ body {
   z-index:300;
 }
 
-/* Vollbildmodus */
+/* Verbesserter Vollbildmodus für Mobilgeräte */
 body.fullscreen {
+  flex-direction: column;
   padding-top: 0;
 }
 body.fullscreen .header {
   display: none;
 }
 body.fullscreen .side {
-  min-height: 100vh;
+  width: 100%;
+  margin: 0;
+  border-radius: 0;
+  padding: 10px 12px 20px;
+  box-shadow: none;
+  order: 2;
 }
 body.fullscreen .grid-container {
-  min-height: 100vh;
-  padding: 20px;
+  order: 1;
+  flex: 1;
+  padding: 10px;
+  min-height: auto;
+  justify-content: center;
+  align-items: center;
+}
+body.fullscreen .grid {
+  width: min(90vw, 90vh);
+  margin: 0 auto;
+  gap: 6px;
 }
 
 /* Vollbild Button */
