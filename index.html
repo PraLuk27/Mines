@@ -60,6 +60,7 @@ body {
   box-shadow: 0 8px 24px rgba(0,0,0,0.6);
   font-family: Inter, sans-serif;
   box-sizing:border-box;
+  min-height: auto;
 }
 
 /* Labels & Inputs */
@@ -256,6 +257,31 @@ body {
 #fullscreenBtn:hover {
   filter: brightness(1.15);
 }
+
+/* Vollbildmodus Anpassungen */
+body.fullscreen {
+  padding-top: 0;
+}
+
+body.fullscreen .header {
+  display: none;
+}
+
+body.fullscreen .side {
+  min-height: 100vh; /* Sidebar volle Höhe */
+}
+
+body.fullscreen .grid-container {
+  min-height: 100vh; /* Grid volle Höhe */
+  padding: 20px;
+}
+
+body.fullscreen .grid {
+  width: auto;
+  height: 100%;
+  aspect-ratio: 1/1;
+  max-width: 100%;
+}
 </style>
 </head>
 <body>
@@ -280,7 +306,6 @@ body {
     </div>
   </div>
 
-  <!-- Buttons untereinander -->
   <button id="start" class="big-btn green">Start</button>
   <button id="randomBtn" class="big-btn disabled">Random Tile</button>
   <button id="cashoutBtn" class="big-btn green secondary" style="display:none">Cashout</button>
@@ -291,7 +316,6 @@ body {
   <div class="grid" id="grid"></div>
 </div>
 
-<!-- Vollbild Button -->
 <button id="fullscreenBtn">⤢</button>
 
 <script>
@@ -437,6 +461,15 @@ fullscreenBtnEl.onclick = () => {
     document.exitFullscreen();
   }
 };
+
+// Vollbild-Klasse setzen
+document.addEventListener('fullscreenchange', () => {
+  if (document.fullscreenElement) {
+    document.body.classList.add('fullscreen');
+  } else {
+    document.body.classList.remove('fullscreen');
+  }
+});
 </script>
 
 </body>
