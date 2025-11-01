@@ -2,7 +2,8 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<title>Mines Spiel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mines Spiel (Mobilfähig)</title>
 <style>
 :root {
   --bg:#0f1720;
@@ -15,7 +16,6 @@
   --lost-scale:0.75;
 }
 
-/* Body */
 body { 
   margin:0; 
   display:flex; 
@@ -26,6 +26,7 @@ body {
   background:linear-gradient(180deg,var(--bg),#081019);
   box-sizing:border-box;
   transition: all 0.3s;
+  overflow-x:hidden;
 }
 
 /* Header */
@@ -62,14 +63,12 @@ body {
   box-sizing:border-box;
 }
 
-/* Labels & Inputs */
 .row label { 
   font-size:13px; 
   color:#a0a8b0; 
   margin-bottom:6px; 
   font-weight:500;
 }
-
 .row input { 
   padding:12px; 
   border-radius:10px; 
@@ -87,7 +86,7 @@ body {
   box-shadow: inset 2px 2px 5px rgba(0,0,0,0.6), inset -2px -2px 5px rgba(0,200,83,0.4);
 }
 
-/* Settings Zeile horizontal */
+/* Settings */
 .row.settings {
   display: flex;
   gap: 5px; 
@@ -100,7 +99,6 @@ body {
   gap:6px;
 }
 
-/* Buttons untereinander mit 5px Abstand */
 .side button + button {
   margin-top:5px;
 }
@@ -115,7 +113,6 @@ body {
   border:none; 
   transition:0.3s;
 }
-
 .big-btn.green { 
   background: linear-gradient(180deg,#00c853,#009624); 
   color:#04210f;
@@ -124,12 +121,10 @@ body {
   filter: brightness(1.15);
   box-shadow: 0 6px 16px rgba(0,0,0,0.6);
 }
-
 .big-btn.green.secondary { 
   font-size:18px; 
   padding:16px 0; 
 }
-
 .big-btn.disabled { 
   background:linear-gradient(180deg,#2a2f38,#1f232b); 
   color:#777; 
@@ -141,21 +136,19 @@ body {
 .grid-container { 
   flex:1;                      
   display:flex;
-  justify-content:flex-start;
+  justify-content:center;
   align-items:center;           
   padding:20px;
   box-sizing:border-box;
   min-height: calc(100vh - 60px);
   position:relative;
 }
-
-/* Grid quadratisch */
 .grid { 
   display:grid;
   gap:8px;
-  height:100%;       
+  height:auto;       
   aspect-ratio:1/1;   
-  width:auto;         
+  width:min(90vw,90vh);         
   margin-left:10px;  
 }
 
@@ -181,7 +174,7 @@ body {
   position:absolute;
   top:10px;
   right:10px;
-  font-size:26px;
+  font-size:22px;
   font-weight:bold;
   color:#ffffff;
   z-index:300;
@@ -201,91 +194,8 @@ body.fullscreen .grid-container {
   min-height: 100vh;
   padding: 20px;
 }
-body.fullscreen .grid {
-  height: 100%;
-  aspect-ratio: 1/1;
-  width: auto;
-  max-width: 100%;
-}
 
-/* Mobile Ansicht */
-@media (max-width: 768px) {
-  body {
-    flex-direction: column;
-    padding-top: 60px;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  .grid-container {
-    order: 1;
-    width: 100%;
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 50vh;
-  }
-
-  .grid {
-    width: 90vw;
-    height: 90vw;
-    max-height: 80vh;
-    aspect-ratio: 1/1;
-    gap: 5px;
-    margin: 0;
-  }
-
-  .side {
-    order: 2;
-    width: 100%;
-    border-radius: 0;
-    min-height: auto;
-    max-height: none;
-    padding: 20px;
-    margin: 0;
-    overflow-y: auto;
-    box-shadow: none;
-  }
-
-  .balance-display {
-    position: fixed;
-    top: 8px;
-    right: 10px;
-    font-size: 22px;
-  }
-
-  /* Mobile Hochkant Vollbild */
-  body.fullscreen {
-    flex-direction: column;
-  }
-
-  body.fullscreen .side {
-    width: 100%;
-    min-height: auto;
-    order: 2;
-  }
-
-  body.fullscreen .grid-container {
-    order: 1;
-    width: 100%;
-    min-height: auto;
-    height: auto;
-    padding: 10px;
-    justify-content: center;
-    align-items: center;
-  }
-
-  body.fullscreen .grid {
-    width: 95vw;
-    height: 95vw;
-    max-height: 95vh;
-    aspect-ratio: 1/1;
-    gap: 5px;
-  }
-}
-
-/* Floating Vollbild Button */
+/* Vollbild Button */
 #fullscreenBtn {
   position: fixed;
   bottom: 20px;
@@ -304,12 +214,69 @@ body.fullscreen .grid {
 #fullscreenBtn:hover {
   filter: brightness(1.15);
 }
+
+/* --- MOBILE LAYOUT --- */
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+    padding-top: 50px;
+  }
+  .header {
+    justify-content: center;
+    padding-left: 0;
+    height: 50px;
+  }
+  .header img {
+    max-height: 40px;
+  }
+  .grid-container {
+    order: 1;
+    padding: 10px;
+    min-height: auto;
+  }
+  .side {
+    order: 2;
+    width: 100%;
+    margin: 10px 0 0;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 15px 10px;
+  }
+  .big-btn {
+    font-size: 15px;
+    padding: 12px;
+  }
+  .row input {
+    padding: 10px;
+    font-size: 14px;
+  }
+  .grid {
+    gap: 5px;
+    width: 90vw;
+  }
+  .balance-display {
+    font-size: 18px;
+    top: 5px;
+    right: 5px;
+  }
+  #fullscreenBtn {
+    bottom: 10px;
+    right: 10px;
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+}
 </style>
 </head>
 <body>
 
 <div class="header">
   <img src="https://i.postimg.cc/P5mRQW2M/logo.png" alt="Logo">
+</div>
+
+<div class="grid-container">
+  <div class="balance-display" id="balanceTop">1000.00 €</div>
+  <div class="grid" id="grid"></div>
 </div>
 
 <div class="side">
@@ -331,11 +298,6 @@ body.fullscreen .grid {
   <button id="start" class="big-btn green">Start</button>
   <button id="randomBtn" class="big-btn disabled">Random Tile</button>
   <button id="cashoutBtn" class="big-btn green secondary" style="display:none">Cashout</button>
-</div>
-
-<div class="grid-container">
-  <div class="balance-display" id="balanceTop">1000.00 €</div>
-  <div class="grid" id="grid"></div>
 </div>
 
 <button id="fullscreenBtn">⤢</button>
@@ -364,7 +326,6 @@ function createGrid(size){
     t.className='tile';
     t.dataset.i=i;
     t.onclick=()=>reveal(i,t);
-    t.ontouchstart=()=>reveal(i,t);
     grid.appendChild(t);
   }
 }
@@ -384,7 +345,6 @@ function survival(k){
   for(let i=0;i<k;i++) p*=(total-minesCount-i)/(total-i);
   return p;
 }
-
 function fair(k){ const s=survival(k); return s>0?1/s:0; }
 
 function updatePayout(){ 
@@ -460,7 +420,7 @@ function randomTile(){
   reveal(i,t);
 }
 
-function endRound(won){
+function endRound(){
   inRound=false;
   startBtn.style.display='inline-block'; 
   cashBtn.style.display='none';
@@ -483,8 +443,6 @@ fullscreenBtnEl.onclick = () => {
     document.exitFullscreen();
   }
 };
-
-// Vollbild-Klasse setzen
 document.addEventListener('fullscreenchange', () => {
   if (document.fullscreenElement) {
     document.body.classList.add('fullscreen');
@@ -493,6 +451,5 @@ document.addEventListener('fullscreenchange', () => {
   }
 });
 </script>
-
 </body>
 </html>
