@@ -16,13 +16,13 @@
 }
 
 /* Body */
-body { 
-  margin:0; 
-  display:flex; 
+body {
+  margin:0;
+  display:flex;
   flex-direction:row;
   min-height:100vh;
-  padding-top:60px; 
-  font-family:Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  padding-top:60px;
+  font-family:Inter,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   background:linear-gradient(180deg,var(--bg),#081019);
   box-sizing:border-box;
   transition: all 0.3s;
@@ -48,133 +48,133 @@ body {
   object-fit:contain;
 }
 
-/* Sidebar */
-.side { 
+/* Sidebar / Controls */
+.side {
   width:310px;
-  margin: 0 5px;
-  background:linear-gradient(180deg,#1b2330,#121820); 
-  padding:30px 25px; 
-  display:flex; 
-  flex-direction:column; 
+  margin:0 5px;
+  background:linear-gradient(180deg,#1b2330,#121820);
+  padding:30px 25px;
+  display:flex;
+  flex-direction:column;
   border-radius:16px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.6);
-  font-family: Inter, sans-serif;
+  box-shadow:0 8px 24px rgba(0,0,0,0.6);
+  font-family:Inter,sans-serif;
   box-sizing:border-box;
-  min-height: auto;
 }
 
-/* Labels & Inputs */
-.row label { 
-  font-size:13px; 
-  color:#a0a8b0; 
-  margin-bottom:6px; 
+.row label {
+  font-size:13px;
+  color:#a0a8b0;
+  margin-bottom:6px;
   font-weight:500;
 }
 
-.row input { 
-  padding:12px; 
-  border-radius:10px; 
-  border:none; 
-  background:#1f2838; 
-  color:#e6eef6; 
-  font-size:15px; 
-  width:100%; 
+.row input {
+  padding:12px;
+  border-radius:10px;
+  border:none;
+  background:#1f2838;
+  color:#e6eef6;
+  font-size:15px;
+  width:100%;
   box-sizing:border-box;
-  box-shadow: inset 2px 2px 5px rgba(0,0,0,0.6), inset -2px -2px 5px rgba(255,255,255,0.05);
+  box-shadow: inset 2px 2px 5px rgba(0,0,0,0.6),
+              inset -2px -2px 5px rgba(255,255,255,0.05);
   transition:0.2s;
 }
 .row input:focus{
   outline:none;
-  box-shadow: inset 2px 2px 5px rgba(0,0,0,0.6), inset -2px -2px 5px rgba(0,200,83,0.4);
+  box-shadow: inset 2px 2px 5px rgba(0,0,0,0.6),
+              inset -2px -2px 5px rgba(0,200,83,0.4);
 }
 
-/* Settings Zeile horizontal */
 .row.settings {
-  display: flex;
-  gap: 5px; 
+  display:flex;
+  gap:5px;
   margin-top:5px;
 }
 .row.settings .col {
   flex:1;
   display:flex;
-  flex-direction: column;
+  flex-direction:column;
   gap:6px;
 }
 
-/* Buttons untereinander mit 5px Abstand */
-.side button + button {
-  margin-top:5px;
-}
+.side button + button { margin-top:5px; }
 
-.big-btn { 
+.big-btn {
   width:100%;
-  padding:14px; 
-  border-radius:12px; 
-  font-weight:700; 
-  font-size:16px; 
-  cursor:pointer; 
-  border:none; 
+  padding:14px;
+  border-radius:12px;
+  font-weight:700;
+  font-size:16px;
+  cursor:pointer;
+  border:none;
   transition:0.3s;
 }
 
-.big-btn.green { 
-  background: linear-gradient(180deg,#00c853,#009624); 
+.big-btn.green {
+  background:linear-gradient(180deg,#00c853,#009624);
   color:#04210f;
 }
 .big-btn.green:hover{
-  filter: brightness(1.15);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.6);
+  filter:brightness(1.15);
+  box-shadow:0 6px 16px rgba(0,0,0,0.6);
 }
-
-.big-btn.green.secondary { 
-  font-size:18px; 
-  padding:16px 0; 
+.big-btn.green.secondary {
+  font-size:18px;
+  padding:16px 0;
 }
-
-.big-btn.disabled { 
-  background:linear-gradient(180deg,#2a2f38,#1f232b); 
-  color:#777; 
+.big-btn.disabled {
+  background:linear-gradient(180deg,#2a2f38,#1f232b);
+  color:#777;
   cursor:not-allowed;
-  box-shadow: inset 0 2px 6px rgba(0,0,0,0.5);
+  box-shadow:inset 0 2px 6px rgba(0,0,0,0.5);
 }
 
 /* Grid Container */
-.grid-container { 
-  flex:1;                      
+.grid-container {
+  flex:1;
   display:flex;
-  justify-content:flex-start;
-  align-items:center;           
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
   padding:20px;
   box-sizing:border-box;
-  min-height: calc(100vh - 60px);
+  min-height:calc(100vh - 60px);
   position:relative;
 }
 
-/* Grid quadratisch */
-.grid { 
+.grid {
   display:grid;
-  height:100%;       
-  aspect-ratio:1/1;   
-  width:auto;         
-  margin-left:10px;  
+  aspect-ratio:1/1;
+  width:90vmin;
+  max-width:500px;
+  margin-bottom:20px;
 }
 
 /* Tiles */
-.tile { 
-  position:relative; 
-  background:var(--tile); 
-  cursor:pointer; 
-  display:flex; 
-  justify-content:center; 
-  align-items:center; 
+.tile {
+  position:relative;
+  background:var(--tile);
+  cursor:pointer;
+  display:flex;
+  justify-content:center;
+  align-items:center;
   transition:0.1s;
 }
-.tile.clicked { background:black;}
-.tile.revealed { background:#071015;}
-.tile.black-bg { background:black;}
-.gem, .bomb { position:absolute; background-size:contain; background-position:center; background-repeat:no-repeat; transition:0.5s;}
-.gem { width:var(--gem-size); height:var(--gem-size); background-image: url('https://i.postimg.cc/Y06WsCVP/gem.png'); }
-.bomb { width:var(--bomb-size); height:var(--bomb-size); background-image: url('https://i.postimg.cc/8cR60z3t/bomb.png'); }
+.tile.clicked { background:black; }
+.tile.revealed { background:#071015; }
+.tile.black-bg { background:black; }
+.gem, .bomb {
+  position:absolute;
+  background-size:contain;
+  background-position:center;
+  background-repeat:no-repeat;
+  transition:0.5s;
+}
+.gem { width:var(--gem-size); height:var(--gem-size); background-image:url('https://i.postimg.cc/Y06WsCVP/gem.png'); }
+.bomb { width:var(--bomb-size); height:var(--bomb-size); background-image:url('https://i.postimg.cc/8cR60z3t/bomb.png'); }
 
 .balance-display {
   position:absolute;
@@ -186,7 +186,7 @@ body {
   z-index:300;
 }
 
-/* Mobile */
+/* Mobile Layout */
 @media (max-width: 768px) {
   body {
     flex-direction:column;
@@ -194,38 +194,27 @@ body {
   }
 
   .grid-container {
+    order:1;
     width:100%;
-    height:auto;
     padding:10px;
-    order:1; 
+    min-height:auto;
   }
 
   .side {
+    order:2;
     width:100%;
     border-radius:0;
-    min-height:auto;
-    padding:20px;
-    order:2; 
+    background:linear-gradient(180deg,#121820,#0e1419);
+    padding:15px;
     margin:0;
-    overflow-y:auto;
-    max-height:50vh;
+    box-shadow:none;
   }
 
   .grid {
     width: calc(100vw - 20px);
     height: calc(100vw - 20px);
     gap:5px;
-    margin-left:0; 
-  }
-
-  .row input {
-    font-size:16px;
-    padding:14px;
-  }
-
-  .big-btn {
-    font-size:18px;
-    padding:16px 0;
+    margin-bottom:20px;
   }
 
   .balance-display {
@@ -236,7 +225,7 @@ body {
   }
 }
 
-/* Floating Vollbild Button */
+/* Vollbild Button */
 #fullscreenBtn {
   position: fixed;
   bottom: 20px;
@@ -252,69 +241,43 @@ body {
   box-shadow: 0 4px 12px rgba(0,0,0,0.6);
   transition: 0.3s;
 }
-#fullscreenBtn:hover {
-  filter: brightness(1.15);
-}
-
-/* Vollbildmodus Anpassungen */
-body.fullscreen {
-  padding-top: 0;
-}
-
-body.fullscreen .header {
-  display: none;
-}
-
-body.fullscreen .side {
-  min-height: 100vh; /* Sidebar volle Höhe */
-}
-
-body.fullscreen .grid-container {
-  min-height: 100vh; /* Grid volle Höhe */
-  padding: 20px;
-}
-
-body.fullscreen .grid {
-  width: auto;
-  height: 100%;
-  aspect-ratio: 1/1;
-  max-width: 100%;
-}
+#fullscreenBtn:hover { filter: brightness(1.15); }
 </style>
 </head>
+
 <body>
-
-<div class="header">
-  <img src="https://i.postimg.cc/P5mRQW2M/logo.png" alt="Logo">
-</div>
-
-<div class="side">
-  <div class="row">
-    <label for="bet">Bet Amount</label>
-    <input type="number" id="bet" value="10" min="0.01" step="0.01">
-  </div>
-  <div class="row settings">
-    <div class="col">
-      <label for="mines">Mines</label>
-      <input type="number" id="mines" value="3" min="1" step="1">
-    </div>
-    <div class="col">
-      <label for="gridSize">Size</label>
-      <input type="number" id="gridSize" value="5" min="2" step="1">
-    </div>
+  <div class="header">
+    <img src="https://i.postimg.cc/P5mRQW2M/logo.png" alt="Logo">
   </div>
 
-  <button id="start" class="big-btn green">Start</button>
-  <button id="randomBtn" class="big-btn disabled">Random Tile</button>
-  <button id="cashoutBtn" class="big-btn green secondary" style="display:none">Cashout</button>
-</div>
+  <div class="grid-container">
+    <div class="balance-display" id="balanceTop">1000.00 €</div>
+    <div class="grid" id="grid"></div>
+  </div>
 
-<div class="grid-container">
-  <div class="balance-display" id="balanceTop">1000.00 €</div>
-  <div class="grid" id="grid"></div>
-</div>
+  <div class="side">
+    <div class="row">
+      <label for="bet">Einsatz</label>
+      <input type="number" id="bet" value="10" min="0.01" step="0.01">
+    </div>
 
-<button id="fullscreenBtn">⤢</button>
+    <div class="row settings">
+      <div class="col">
+        <label for="mines">Minen</label>
+        <input type="number" id="mines" value="3" min="1" step="1">
+      </div>
+      <div class="col">
+        <label for="gridSize">Größe</label>
+        <input type="number" id="gridSize" value="5" min="2" step="1">
+      </div>
+    </div>
+
+    <button id="start" class="big-btn green">Start</button>
+    <button id="randomBtn" class="big-btn disabled">Zufälliges Feld</button>
+    <button id="cashoutBtn" class="big-btn green secondary" style="display:none">Auszahlen</button>
+  </div>
+
+  <button id="fullscreenBtn">⤢</button>
 
 <script>
 const balanceTop=document.getElementById('balanceTop'),
@@ -335,16 +298,13 @@ function createGrid(size){
   grid.style.gridTemplateColumns=`repeat(${size},1fr)`;
   grid.style.gridTemplateRows=`repeat(${size},1fr)`;
   total=size*size;
-
-  // Dynamische Rundung und Abstand
-  const radius = Math.max(2, 12 - size); 
-  const gap = Math.max(2, 10 - Math.floor(size/1.5));
-  grid.style.gap = gap + 'px';
-
+  const radius=Math.max(2,12-size);
+  const gap=Math.max(2,10-Math.floor(size/1.5));
+  grid.style.gap=gap+'px';
   for(let i=0;i<total;i++){
     const t=document.createElement('div');
     t.className='tile';
-    t.style.borderRadius = radius + 'px';
+    t.style.borderRadius=radius+'px';
     t.dataset.i=i;
     t.onclick=()=>reveal(i,t);
     t.ontouchstart=()=>reveal(i,t);
@@ -370,14 +330,11 @@ function survival(k){
 
 function fair(k){ const s=survival(k); return s>0?1/s:0; }
 
-function updatePayout(){ 
-  if(!inRound||bet<=0){ 
-    cashBtn.textContent='Cashout';
-    return;
-  }
-  const multiplier=fair(safe); 
-  const amount=bet*multiplier; 
-  cashBtn.textContent='Cashout: '+(isFinite(amount)?amount.toFixed(2)+' €':'0.00 €');
+function updatePayout(){
+  if(!inRound||bet<=0){ cashBtn.textContent='Auszahlen'; return; }
+  const multiplier=fair(safe);
+  const amount=bet*multiplier;
+  cashBtn.textContent='Auszahlen: '+(isFinite(amount)?amount.toFixed(2)+' €':'0.00 €');
 }
 
 function startRound(){
@@ -387,13 +344,11 @@ function startRound(){
   gridSize=parseInt(gridInp.value)||5;
   if(gridSize<2){ alert('Ungültige Gridgröße'); return;}
   minesCount=parseInt(minesInp.value)||1;
-  if(minesCount<1||minesCount>=gridSize*gridSize){ alert('Ungültige Mines'); return;}
-
+  if(minesCount<1||minesCount>=gridSize*gridSize){ alert('Ungültige Anzahl Minen'); return;}
   bal-=bet; balanceTop.textContent=bal.toFixed(2)+' €';
   inRound=true; safe=0; revealed=new Set(); mines=randomMines(minesCount,gridSize*gridSize);
   createGrid(gridSize);
-
-  startBtn.style.display='none'; 
+  startBtn.style.display='none';
   cashBtn.style.display='inline-block';
   randomBtn.classList.remove('disabled');
   randomBtn.classList.add('green');
@@ -404,7 +359,6 @@ function startRound(){
 function reveal(i,t){
   if(!inRound||revealed.has(i)) return;
   revealed.add(i); t.classList.add('clicked');
-
   if(mines.has(i)){
     const b=document.createElement('div'); b.className='bomb'; t.appendChild(b);
     Array.from(grid.children).forEach((tile,j)=>{
@@ -445,12 +399,12 @@ function randomTile(){
 
 function endRound(won){
   inRound=false;
-  startBtn.style.display='inline-block'; 
+  startBtn.style.display='inline-block';
   cashBtn.style.display='none';
   randomBtn.classList.remove('green');
   randomBtn.classList.add('disabled');
   minesInp.disabled=false; betInp.disabled=false; gridInp.disabled=false;
-  cashBtn.textContent='Cashout';
+  cashBtn.textContent='Auszahlen';
 }
 
 startBtn.onclick=startRound;
@@ -467,15 +421,10 @@ fullscreenBtnEl.onclick = () => {
   }
 };
 
-// Vollbild-Klasse setzen
 document.addEventListener('fullscreenchange', () => {
-  if (document.fullscreenElement) {
-    document.body.classList.add('fullscreen');
-  } else {
-    document.body.classList.remove('fullscreen');
-  }
+  document.body.classList.toggle('fullscreen', !!document.fullscreenElement);
 });
 </script>
-
 </body>
 </html>
+
