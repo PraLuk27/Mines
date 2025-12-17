@@ -25,6 +25,7 @@ body {
   font-family:Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   background:linear-gradient(180deg,var(--bg),#081019);
   box-sizing:border-box;
+  transition: all 0.3s;
 }
 
 /* Header */
@@ -58,6 +59,8 @@ body {
   border-radius:16px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.6);
   font-family: Inter, sans-serif;
+  box-sizing:border-box;
+  min-height: auto;
 }
 
 /* Labels & Inputs */
@@ -88,7 +91,7 @@ body {
 /* Settings Zeile horizontal */
 .row.settings {
   display: flex;
-  gap: 5px; /* horizontaler Abstand zwischen Mines und Size */
+  gap: 5px; 
   margin-top:5px;
 }
 .row.settings .col {
@@ -150,7 +153,6 @@ body {
 /* Grid quadratisch */
 .grid { 
   display:grid;
-  gap:8px;
   height:100%;       
   aspect-ratio:1/1;   
   width:auto;         
@@ -160,7 +162,6 @@ body {
 /* Tiles */
 .tile { 
   position:relative; 
-  border-radius:10px; 
   background:var(--tile); 
   cursor:pointer; 
   display:flex; 
@@ -182,7 +183,7 @@ body {
   font-size:26px;
   font-weight:bold;
   color:#ffffff;
-  z-index:100;
+  z-index:300;
 }
 
 /* Mobile */
@@ -206,13 +207,25 @@ body {
     padding:20px;
     order:2; 
     margin:0;
+    overflow-y:auto;
+    max-height:50vh;
   }
 
   .grid {
-    width:100vw;
-    height:100vw;
-    gap:6px;
+    width: calc(100vw - 20px);
+    height: calc(100vw - 20px);
+    gap:5px;
     margin-left:0; 
+  }
+
+  .row input {
+    font-size:16px;
+    padding:14px;
+  }
+
+  .big-btn {
+    font-size:18px;
+    padding:16px 0;
   }
 
   .balance-display {
@@ -220,8 +233,52 @@ body {
     top:8px;
     right:10px;
     font-size:22px;
-    z-index:100;
   }
+}
+
+/* Floating Vollbild Button */
+#fullscreenBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  padding: 12px 16px;
+  font-size: 16px;
+  border-radius: 8px;
+  background: linear-gradient(180deg,#00c853,#009624);
+  border: none;
+  color: #04210f;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+  transition: 0.3s;
+}
+#fullscreenBtn:hover {
+  filter: brightness(1.15);
+}
+
+/* Vollbildmodus Anpassungen */
+body.fullscreen {
+  padding-top: 0;
+}
+
+body.fullscreen .header {
+  display: none;
+}
+
+body.fullscreen .side {
+  min-height: 100vh; /* Sidebar volle Höhe */
+}
+
+body.fullscreen .grid-container {
+  min-height: 100vh; /* Grid volle Höhe */
+  padding: 20px;
+}
+
+body.fullscreen .grid {
+  width: auto;
+  height: 100%;
+  aspect-ratio: 1/1;
+  max-width: 100%;
 }
 </style>
 </head>
@@ -243,11 +300,10 @@ body {
     </div>
     <div class="col">
       <label for="gridSize">Size</label>
-      <input type="number" id="gridSize" value="5" min="2" max="10" step="1">
+      <input type="number" id="gridSize" value="5" min="2" step="1">
     </div>
   </div>
 
-  <!-- Buttons untereinander -->
   <button id="start" class="big-btn green">Start</button>
   <button id="randomBtn" class="big-btn disabled">Random Tile</button>
   <button id="cashoutBtn" class="big-btn green secondary" style="display:none">Cashout</button>
@@ -258,6 +314,8 @@ body {
   <div class="grid" id="grid"></div>
 </div>
 
+<button id="fullscreenBtn">⤢</button>
+
 <script>
 const balanceTop=document.getElementById('balanceTop'),
       grid=document.getElementById('grid'),
@@ -266,7 +324,8 @@ const balanceTop=document.getElementById('balanceTop'),
       gridInp=document.getElementById('gridSize'),
       startBtn=document.getElementById('start'),
       cashBtn=document.getElementById('cashoutBtn'),
-      randomBtn=document.getElementById('randomBtn');
+      randomBtn=document.getElementById('randomBtn'),
+      fullscreenBtnEl=document.getElementById('fullscreenBtn');
 
 let bal=1000, bet=0, minesCount=3, mines=new Set(), revealed=new Set(), safe=0, inRound=false;
 let gridSize=5, total=25;
@@ -276,11 +335,19 @@ function createGrid(size){
   grid.style.gridTemplateColumns=`repeat(${size},1fr)`;
   grid.style.gridTemplateRows=`repeat(${size},1fr)`;
   total=size*size;
+
+  // Dynamische Rundung und Abstand
+  const radius = Math.max(2, 12 - size); 
+  const gap = Math.max(2, 10 - Math.floor(size/1.5));
+  grid.style.gap = gap + 'px';
+
   for(let i=0;i<total;i++){
     const t=document.createElement('div');
     t.className='tile';
+    t.style.borderRadius = radius + 'px';
     t.dataset.i=i;
     t.onclick=()=>reveal(i,t);
+    t.ontouchstart=()=>reveal(i,t);
     grid.appendChild(t);
   }
 }
@@ -318,7 +385,7 @@ function startRound(){
   bet=parseFloat(betInp.value)||0;
   if(bet<=0||bet>bal){ alert('Ungültiger Einsatz'); return;}
   gridSize=parseInt(gridInp.value)||5;
-  if(gridSize<2||gridSize>10){ alert('Ungültige Gridgröße'); return;}
+  if(gridSize<2){ alert('Ungültige Gridgröße'); return;}
   minesCount=parseInt(minesInp.value)||1;
   if(minesCount<1||minesCount>=gridSize*gridSize){ alert('Ungültige Mines'); return;}
 
@@ -389,8 +456,25 @@ function endRound(won){
 startBtn.onclick=startRound;
 cashBtn.onclick=cashout;
 randomBtn.onclick=randomTile;
-
 createGrid(gridSize);
+
+/* Vollbild Button */
+fullscreenBtnEl.onclick = () => {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(()=>{});
+  } else {
+    document.exitFullscreen();
+  }
+};
+
+// Vollbild-Klasse setzen
+document.addEventListener('fullscreenchange', () => {
+  if (document.fullscreenElement) {
+    document.body.classList.add('fullscreen');
+  } else {
+    document.body.classList.remove('fullscreen');
+  }
+});
 </script>
 
 </body>
